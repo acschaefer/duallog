@@ -58,7 +58,7 @@ def setup(logdir=defaultdir):
     console.setLevel(logging.WARNING)
     formatter = logging.Formatter('%(levelname)s: %(message)s')
     console.setFormatter(formatter)
-    logging.getLogger('').addHandler(console)
+    logging.getLogger().addHandler(console)
 
 
 if __name__ == '__main__':
