@@ -1,4 +1,4 @@
-![Image showing logs](./logs.jpg)
+![Image showing logs](./duallog.jpg)
 
 # The duallog package
 
