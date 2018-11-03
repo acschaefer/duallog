@@ -22,12 +22,21 @@ import duallog
 import logging
 
 # Set up dual logging and tell duallog where to store the logfiles.
-duallog.setup('mylogs')
+duallog.setup('logtest')
 
-# Generate log messages.
-logging.debug('Debug messages like this are written to the logfile only.')
-logging.info('The same is true for info messages.')
-logging.warn('This helps the user focus on important messages, like this warn message ...')
-logging.error('... or on this error message.')
-logging.critical('All messages with levels of at least \"warn\" are written to both file and console.')
+# Generate some log messages.
+logging.warn('This function illustrates how to use the duallog package.')
+logging.warn('All messages are sent to both the console and a logfile in the folder \"{}\".'.format(logdir))
+logging.warn('The logfile\'s name encodes the time when the program was started.')
+logging.warn('The duallog package treats different log levels differently.')
+logging.debug('Debug messages like this are written to the logfile, but not printed on screen.')
+logging.info('Info messages like this get the same treatment.')
+logging.warn('Warn messages like this one are important. They are both sent to the logfile and shown on screen.')
+logging.error('The same holds for error messages like this one ...')
+logging.critical('... and for critical messages, of course.')
+logging.warn('Have a look at the debug and info messages the logfile in the folder \"{}\".'.format(logdir))
+logging.warn('They are not sent to the screen in order not to clutter the display.')
 ```
+
+The corresponding output on the console and in the logfile looks like this:
+![Duallog screenshot](./duallog_screenshot.png)
