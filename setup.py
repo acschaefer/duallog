@@ -11,7 +11,7 @@ import setuptools
 
 # Configure setuptools.
 setuptools.setup(name='duallog',
-                 version='0.1',
+                 version='0.2',
                  description='Library to enable parallel logging to console and logfile',
                  license='MIT',
                  url='https://github.com/acschaefer/duallog',
