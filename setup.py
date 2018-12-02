@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 """Setup module for the duallog package
 
-This module configures setuptools so that it can create a distribution for the duallog package.
+This module configures setuptools so that it can create a distribution for the
+duallog package.
 """
 
 # Import required system libraries.
@@ -12,7 +13,8 @@ import setuptools
 # Configure setuptools.
 setuptools.setup(name='duallog',
                  version='0.2',
-                 description='Library to enable parallel logging to console and logfile',
+                 description=
+                    'Library to enable parallel logging to console and logfile',
                  license='MIT',
                  url='https://github.com/acschaefer/duallog',
                  author='Alexander Schaefer',
