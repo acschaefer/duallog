@@ -81,30 +81,30 @@ if __name__ == '__main__':
     setup(logdir)
 
     # Generate some log messages.
-    logging.warn(
+    logging.warning(
         'This function illustrates how to use the duallog package.')
-    logging.warn(
+    logging.warning(
         'All messages are sent to both the console and a logfile in the folder '
         '\"{}\".'.format(logdir))
     logging.warn(
         'The logfile\'s name encodes the time when the program was started.')
-    logging.warn(
+    logging.warning(
         'The duallog package treats different log levels differently.')
     logging.debug(
         'Debug messages like this are written to the logfile, but not printed '
         'on screen.')
     logging.info(
         'Info messages like this get the same treatment.')
-    logging.warn(
+    logging.warning(
         'Warn messages like this one are important. '
         'They are both sent to the logfile and shown on screen.')
     logging.error(
         'The same holds for error messages like this one ...')
     logging.critical(
         '... and for critical messages, of course.')
-    logging.warn(
+    logging.warning(
         'Have a look at the debug and info messages the logfile in the folder '
         '\"{}\".'.format(logdir))
-    logging.warn(
+    logging.warning(
         'They are not sent to the screen in order not to clutter the display.')
     
