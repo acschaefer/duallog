@@ -12,7 +12,7 @@ import setuptools
 
 # Configure setuptools.
 setuptools.setup(name='duallog',
-                 version='0.2',
+                 version='0.3',
                  description=
                     'Library to enable parallel logging to console and logfile',
                  license='MIT',
