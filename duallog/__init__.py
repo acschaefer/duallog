@@ -1,1 +1,1 @@
-from duallog import *
+from .duallog import *
