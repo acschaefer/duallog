@@ -3,10 +3,10 @@
 """Setup module for the duallog package
 
 This module configures setuptools so that it can create a distribution for the
-duallog package.
+package.
 """
 
-# Import required system libraries.
+# Import required standard libraries.
 import io
 import os
 import setuptools
@@ -18,7 +18,7 @@ with io.open(os.path.join(maindir, 'README.md'), encoding='utf-8') as file:
 
 # Configure setuptools.
 setuptools.setup(name='duallog',
-                 version='0.13',
+                 version='0.14',
                  description='Parallel logging to console and logfile',
                  long_description=readme,
                  long_description_content_type='text/markdown',
