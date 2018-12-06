@@ -4,9 +4,18 @@ Python package to enable simultaneous logging to console and logfile.
 
 ## How to install duallog?
 
-To install the duallog package, perform the following two steps:
+You can install duallog using [pip](https://www.w3schools.com/python/python_pip.asp), or you can install from source.
+Below you find instructions for both ways.
+
+### Installation via `pip`
+
+In the terminal, run `pip install duallog`.
+
+### Installation from source
+
 1. Download and unpack this repository.
-2. From within the repository folder, run `python setup.py install`.
+2. Open a terminal and navigate to the repository. 
+3. Execute `python setup.py install` from within the repository.
 
 ## How to use duallog?
 
