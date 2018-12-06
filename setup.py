@@ -8,12 +8,12 @@ duallog package.
 
 # Import required system libraries.
 import io
-from os import path
+import os
 import setuptools
 
 # Load the readme.
-maindir = path.abspath(path.dirname(__file__))
-with io.open(path.join(maindir, 'README.md'), encoding='utf-8') as file:
+maindir = os.path.abspath(os.path.dirname(__file__))
+with io.open(os.path.join(maindir, 'README.md'), encoding='utf-8') as file:
     readme = file.read()
 
 # Configure setuptools.
