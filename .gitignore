@@ -1,5 +1,6 @@
 logtest/
 *.pyc
 .vscode
+build/
 dist/
 duallog\.egg-info/
