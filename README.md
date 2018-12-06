@@ -2,6 +2,9 @@
 
 Python package to enable simultaneous logging to console and logfile.
 
+![](./duallog_screenshot.png)
+[Duallog screenshot](https://github.com/acschaefer/duallog/blob/master/duallog_screenshot.png)
+
 ## How to install duallog?
 
 You can install duallog using [pip](https://www.w3schools.com/python/python_pip.asp), or you can install from source.
@@ -45,7 +48,4 @@ logging.warn('Have a look at the debug and info messages the logfile in the fold
 logging.warn('They are not sent to the screen in order not to clutter the display.')
 ```
 
-The corresponding output on the console and in the logfile looks like this:
-
-![](./duallog_screenshot.png)
-[Duallog screenshot](https://github.com/acschaefer/duallog/blob/master/duallog_screenshot.png)
+The output of this program is shown in the screenshot at the top of this page.
