@@ -7,13 +7,21 @@ duallog package.
 """
 
 # Import required system libraries.
+import io
+from os import path
 import setuptools
 
+# Load the readme.
+maindir = path.abspath(path.dirname(__file__))
+with io.open(path.join(maindir, 'README.md'), encoding='utf-8') as file:
+    readme = file.read()
 
 # Configure setuptools.
 setuptools.setup(name='duallog',
-                 version='0.4',
+                 version='0.11',
                  description='Parallel logging to console and logfile',
+                 long_description=readme,
+                 long_description_content_type='text/markdown',
                  license='MIT',
                  url='https://github.com/acschaefer/duallog',
                  author='Alexander Schaefer',

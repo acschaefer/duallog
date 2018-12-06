@@ -1,5 +1,3 @@
-![Image showing logs](./duallog.jpg)
-
 # The duallog package
 
 Python package to enable simultaneous logging to console and logfile.
@@ -39,4 +37,6 @@ logging.warn('They are not sent to the screen in order not to clutter the displa
 ```
 
 The corresponding output on the console and in the logfile looks like this:
-![Duallog screenshot](./duallog_screenshot.png)
+
+![](./duallog_screenshot.png)
+[Duallog screenshot](https://github.com/acschaefer/duallog/blob/master/duallog_screenshot.png)
