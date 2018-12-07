@@ -21,12 +21,7 @@ import os
 import logging
 import datetime
 
-
-# Define the default logging directory.
-defaultdir = 'log'
-
-
-def setup(logdir=defaultdir):
+def setup(logdir='log'):
     """ Set up dual logging to console and to logfile.
 
     When this function is called, it first creates the given directory. It then 
@@ -44,20 +39,19 @@ def setup(logdir=defaultdir):
     """
 
     # Validate the given directory.
-    logdir = logdir.strip().rstrip('\\/') + '/'
-    if not logdir:
-        logdir = defaultdir
+    logdir = os.path.normpath(logdir)
 
     # Create a folder for the logfiles.
     if not os.path.exists(logdir):
-        os.mkdir(logdir)
+        os.makedirs(logdir)
 
     # Construct the logfile name.
     t = datetime.datetime.now()
-    logfile = '{logdir}{year:04d}{mon:02d}{day:02d}-' \
+    logfile = '{year:04d}{mon:02d}{day:02d}-' \
         '{hour:02d}{min:02d}{sec:02d}.log'.format(
-            logdir=logdir, year=t.year, mon=t.month, day=t.day, 
+            year=t.year, mon=t.month, day=t.day, 
             hour=t.hour, min=t.minute, sec=t.second)
+    logfile = os.path.join(logdir, logfile)
 
     # Set up logging to the logfile.
     logging.basicConfig(format='%(asctime)s %(levelname)-8s: %(message)s',
@@ -77,7 +71,7 @@ if __name__ == '__main__':
     """Illustrate the usage of the duallog package."""
 
     # Set up dual logging.
-    logdir = 'logtest'
+    logdir = 'log'
     setup(logdir)
 
     # Generate some log messages.
@@ -86,7 +80,7 @@ if __name__ == '__main__':
     logging.warning(
         'All messages are sent to both the console and a logfile in the folder '
         '\"{}\".'.format(logdir))
-    logging.warn(
+    logging.warning(
         'The logfile\'s name encodes the time when the program was started.')
     logging.warning(
         'The duallog package treats different log levels differently.')

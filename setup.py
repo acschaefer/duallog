@@ -18,7 +18,7 @@ with io.open(os.path.join(maindir, 'README.md'), encoding='utf-8') as file:
 
 # Configure setuptools.
 setuptools.setup(name='duallog',
-                 version='0.14',
+                 version='0.15',
                  description='Parallel logging to console and logfile',
                  long_description=readme,
                  long_description_content_type='text/markdown',
