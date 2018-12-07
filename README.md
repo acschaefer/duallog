@@ -35,17 +35,11 @@ import logging
 duallog.setup('logtest')
 
 # Generate some log messages.
-logging.warn('This function illustrates how to use the duallog package.')
-logging.warn('All messages are sent to both the console and a logfile in the folder \"{}\".'.format(logdir))
-logging.warn('The logfile\'s name encodes the time when the program was started.')
-logging.warn('The duallog package treats different log levels differently.')
-logging.debug('Debug messages like this are written to the logfile, but not printed on screen.')
-logging.info('Info messages like this get the same treatment.')
-logging.warn('Warn messages like this one are important. They are both sent to the logfile and shown on screen.')
-logging.error('The same holds for error messages like this one ...')
-logging.critical('... and for critical messages, of course.')
-logging.warn('Have a look at the debug and info messages the logfile in the folder \"{}\".'.format(logdir))
-logging.warn('They are not sent to the screen in order not to clutter the display.')
+logging.debug('Debug messages are only sent to the logfile.')
+logging.info('Info messages are not shown on the console, too.')
+logging.warning('Warnings appear both on the console and in the logfile.')
+logging.error('Errors get the same treatment.')
+logging.critical('And critical messages, of course.')
 ```
 
 The output of this program is shown in the screenshot at the top of this page.
