@@ -16,27 +16,32 @@ If run, this module illustrates the usage of the duallog package.
 """
 
 
-# Import required standard libraries.
-import os
-import logging
+# Import required standard packages.
 import datetime
+import logging.handlers
+import os
+
 
 def setup(logdir='log'):
     """ Set up dual logging to console and to logfile.
 
     When this function is called, it first creates the given directory. It then 
     creates a logfile and passes all log messages to come to it. The logfile
-     name encodes the date and time when it was created, for example 
-    "20181115-153559.txt". All messages with a log level of at least "warn" are
-    also forwarded to the console.
+    name encodes the date and time when it was created, for example 
+    "20181115-153559.txt". All messages with a log level of at least "WARNING" 
+    are also forwarded to the console.
 
     Args:
-        logdir (str): path of the directory where to store the log files. Both a
+        logdir: path of the directory where to store the log files. Both a
             relative or an absolute path may be specified. If a relative path is
             specified, it is interpreted relative to the working directory.
             If no directory is given, the logs are written to a folder called 
             "log" in the working directory. 
     """
+
+    # Create the root logger.
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
 
     # Validate the given directory.
     logdir = os.path.normpath(logdir)
@@ -54,21 +59,27 @@ def setup(logdir='log'):
     logfile = os.path.join(logdir, logfile)
 
     # Set up logging to the logfile.
-    logging.basicConfig(format='%(asctime)s %(levelname)-8s: %(message)s',
-                        level=logging.DEBUG,
-                        filename=logfile,
-                        filemode='w')
-
+    filehandler = logging.handlers.RotatingFileHandler(
+        filename=logfile,
+        maxBytes=100*1024,
+        backupCount=5)
+    filehandler.setLevel(logging.DEBUG)
+    fileformatter = logging.Formatter(
+        '%(asctime)s %(levelname)-8s: %(message)s')
+    filehandler.setFormatter(fileformatter)
+    logger.addHandler(filehandler)
+    
     # Set up logging to the console.
-    console = logging.StreamHandler()
-    console.setLevel(logging.WARNING)
-    formatter = logging.Formatter('%(levelname)s: %(message)s')
-    console.setFormatter(formatter)
-    logging.getLogger().addHandler(console)
+    streamhandler = logging.StreamHandler()
+    streamhandler.setLevel(logging.WARNING)
+    streamformatter = logging.Formatter('%(levelname)s: %(message)s')
+    streamhandler.setFormatter(streamformatter)
+    logger.addHandler(streamhandler)
 
 
 if __name__ == '__main__':
-    """Illustrate the usage of the duallog package."""
+    """Illustrate the usage of the duallog package.
+    """
 
     # Set up dual logging.
     logdir = 'log'
