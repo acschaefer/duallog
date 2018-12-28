@@ -4,3 +4,4 @@ logtest/
 build/
 dist/
 duallog\.egg-info/
+*.log
