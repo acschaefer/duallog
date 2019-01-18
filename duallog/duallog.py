@@ -61,8 +61,8 @@ def setup(logdir='log'):
     # Set up logging to the logfile.
     filehandler = logging.handlers.RotatingFileHandler(
         filename=logfile,
-        maxBytes=100*1024,
-        backupCount=5)
+        maxBytes=10*1024*1024,
+        backupCount=100)
     filehandler.setLevel(logging.DEBUG)
     fileformatter = logging.Formatter(
         '%(asctime)s %(levelname)-8s: %(message)s')
