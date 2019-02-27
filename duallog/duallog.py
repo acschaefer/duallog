@@ -22,7 +22,7 @@ import logging.handlers
 import os
 
 
-def setup(logdir='log'):
+def setup(logdir='log', logname='log', minlevel=logging.WARNING):
     """ Set up dual logging to console and to logfile.
 
     When this function is called, it first creates the given directory. It then 
@@ -37,6 +37,11 @@ def setup(logdir='log'):
             specified, it is interpreted relative to the working directory.
             If no directory is given, the logs are written to a folder called 
             "log" in the working directory. 
+        logname: name of the log. Default 'log'. Will be attached at the start
+            of the log filename followed by a dash char. For example: logname='test', the log file will
+            be something like: test-20190227...
+        minlevel: It defines the minlevel of the messages that will be shown on 
+            the console. Default is WARNING. 
     """
 
     # Create the root logger.
@@ -52,26 +57,26 @@ def setup(logdir='log'):
 
     # Construct the logfile name.
     t = datetime.datetime.now()
-    logfile = '{year:04d}{mon:02d}{day:02d}-' \
+    logfile = '{name}-{year:04d}{mon:02d}{day:02d}-' \
         '{hour:02d}{min:02d}{sec:02d}.log'.format(
-            year=t.year, mon=t.month, day=t.day, 
-            hour=t.hour, min=t.minute, sec=t.second)
+            year=t.year, mon=t.month, day=t.day,
+            hour=t.hour, min=t.minute, sec=t.second, name=logname)
     logfile = os.path.join(logdir, logfile)
 
     # Set up logging to the logfile.
     filehandler = logging.handlers.RotatingFileHandler(
         filename=logfile,
-        maxBytes=10*1024*1024,
+        maxBytes=10 * 1024 * 1024,
         backupCount=100)
     filehandler.setLevel(logging.DEBUG)
     fileformatter = logging.Formatter(
         '%(asctime)s %(levelname)-8s: %(message)s')
     filehandler.setFormatter(fileformatter)
     logger.addHandler(filehandler)
-    
+
     # Set up logging to the console.
     streamhandler = logging.StreamHandler()
-    streamhandler.setLevel(logging.WARNING)
+    streamhandler.setLevel(minlevel)
     streamformatter = logging.Formatter('%(levelname)s: %(message)s')
     streamhandler.setFormatter(streamformatter)
     logger.addHandler(streamhandler)
