@@ -22,7 +22,7 @@ import logging.handlers
 import os
 
 
-def setup(logdir='log', logname='log', minlevel=logging.WARNING):
+def setup(logdir='log', logname='log', minlevel=logging.WARNING, lformat=None):
     """ Set up dual logging to console and to logfile.
 
     When this function is called, it first creates the given directory. It then 
@@ -55,10 +55,14 @@ def setup(logdir='log', logname='log', minlevel=logging.WARNING):
     if not os.path.exists(logdir):
         os.makedirs(logdir)
 
+    # Logfile name format
+    if lformat is None:
+        lformat = '{name}-{year:04d}{mon:02d}{day:02d}-' \
+        '{hour:02d}{min:02d}{sec:02d}'
+
     # Construct the logfile name.
     t = datetime.datetime.now()
-    logfile = '{name}-{year:04d}{mon:02d}{day:02d}-' \
-        '{hour:02d}{min:02d}{sec:02d}.log'.format(
+    logfile = lformat+'.log'.format(
             year=t.year, mon=t.month, day=t.day,
             hour=t.hour, min=t.minute, sec=t.second, name=logname)
     logfile = os.path.join(logdir, logfile)
