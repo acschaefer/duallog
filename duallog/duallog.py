@@ -58,13 +58,13 @@ def setup(logdir='log', logname='log', minlevel=logging.WARNING, lformat=None):
     # Logfile name format
     if lformat is None:
         lformat = '{name}-{year:04d}{mon:02d}{day:02d}-' \
-        '{hour:02d}{min:02d}{sec:02d}'
+            '{hour:02d}{min:02d}{sec:02d}.log'
 
     # Construct the logfile name.
     t = datetime.datetime.now()
-    logfile = lformat+'.log'.format(
-            year=t.year, mon=t.month, day=t.day,
-            hour=t.hour, min=t.minute, sec=t.second, name=logname)
+    logfile = lformat.format(
+        year=t.year, mon=t.month, day=t.day,
+        hour=t.hour, min=t.minute, sec=t.second, name=logname)
     logfile = os.path.join(logdir, logfile)
 
     # Set up logging to the logfile.
