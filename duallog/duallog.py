@@ -45,7 +45,11 @@ def setup(logdir='log'):
 
     # Validate the given directory.
     logdir = os.path.normpath(logdir)
-
+    
+    # if output directory is an existing file
+    if os.path.isfile(logdir):
+        logger.critical("Output directory is an existing file")
+        raise FileExistsError
     # Create a folder for the logfiles.
     if not os.path.exists(logdir):
         os.makedirs(logdir)
