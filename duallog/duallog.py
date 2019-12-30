@@ -29,6 +29,10 @@ fileNameFormat = '{year:04d}{month:02d}{day:02d}-'\
 fileMsgFormat = '%(asctime)s %(levelname)-8s: %(message)s'
 consoleMsgFormat = '%(levelname)s: %(message)s'
 
+# Define the log rotation criteria.
+maxBytes=1024**2
+backupCount=100
+
 
 def setup(dir='log', minLevel=logging.WARNING):
     """ Set up dual logging to console and to logfile.
@@ -65,7 +69,7 @@ def setup(dir='log', minLevel=logging.WARNING):
 
     # Set up logging to the logfile.
     fileHandler = logging.handlers.RotatingFileHandler(
-        filename=fileName, maxBytes=10*1024*1024, backupCount=100)
+        filename=fileName, maxBytes=maxBytes, backupCount=backupCount)
     fileHandler.setLevel(logging.DEBUG)
     fileFormatter = logging.Formatter(fileMsgFormat)
     fileHandler.setFormatter(fileFormatter)
