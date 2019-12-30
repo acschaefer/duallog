@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 """Duallog
 
-This module contains a function "setup()" that sets up dual logging. All 
-subsequent log messages are sent both to the console and to a logfile. Log
-messages are generated via the "logging" package.
+This module contains a function "setup()" that sets up dual logging. 
+All subsequent log messages are sent both to the console and to a logfile. 
+Log messages are generated via the "logging" package.
 
 Example:
     >>> import duallog
@@ -21,27 +21,29 @@ import datetime
 import logging.handlers
 import os
 
+# Define default logfile format.
+fileNameFormat = '{year:04d}{month:02d}{day:02d}-'\
+    '{hour:02d}{minute:02d}{second:02d}.log'
 
-def setup(logdir='log', logname='log', minlevel=logging.WARNING, lformat=None):
+# Define the default logging message formats.
+fileMsgFormat = '%(asctime)s %(levelname)-8s: %(message)s'
+consoleMsgFormat = '%(levelname)s: %(message)s'
+
+
+def setup(dir='log', minLevel=logging.WARNING):
     """ Set up dual logging to console and to logfile.
 
-    When this function is called, it first creates the given directory. It then 
-    creates a logfile and passes all log messages to come to it. The logfile
-    name encodes the date and time when it was created, for example 
-    "20181115-153559.txt". All messages with a log level of at least "WARNING" 
-    are also forwarded to the console.
+    When this function is called, it first creates the given logging output directory. 
+    It then creates a logfile and passes all log messages to come to it. 
+    The name of the logfile encodes the date and time when it was created, for example "20181115-153559.log". 
+    All messages with a certain minimum log level are also forwarded to the console.
 
     Args:
-        logdir: path of the directory where to store the log files. Both a
+        dir: path of the directory where to store the log files. Both a
             relative or an absolute path may be specified. If a relative path is
             specified, it is interpreted relative to the working directory.
-            If no directory is given, the logs are written to a folder called 
-            "log" in the working directory. 
-        logname: name of the log. Default 'log'. Will be attached at the start
-            of the log filename followed by a dash char. For example: logname='test', the log file will
-            be something like: test-20190227...
-        minlevel: It defines the minlevel of the messages that will be shown on 
-            the console. Default is WARNING. 
+            Defaults to "log".
+        minLevel: defines the minimum level of the messages that will be shown      on the console. Defaults to WARNING. 
     """
 
     # Create the root logger.
@@ -49,45 +51,32 @@ def setup(logdir='log', logname='log', minlevel=logging.WARNING, lformat=None):
     logger.setLevel(logging.DEBUG)
 
     # Validate the given directory.
-    logdir = os.path.normpath(logdir)
-    
-    # if output directory is an existing file
-    if os.path.isfile(logdir):
-        logger.critical("Output directory is an existing file")
-        raise FileExistsError
+    dir = os.path.normpath(dir)
+
     # Create a folder for the logfiles.
-    if not os.path.exists(logdir):
-        os.makedirs(logdir)
+    if not os.path.exists(dir):
+        os.makedirs(dir)
 
-    # Logfile name format
-    if lformat is None:
-        lformat = '{name}-{year:04d}{mon:02d}{day:02d}-' \
-            '{hour:02d}{min:02d}{sec:02d}.log'
-
-    # Construct the logfile name.
+    # Construct the name of the logfile.
     t = datetime.datetime.now()
-    logfile = lformat.format(
-        year=t.year, mon=t.month, day=t.day,
-        hour=t.hour, min=t.minute, sec=t.second, name=logname)
-    logfile = os.path.join(logdir, logfile)
+    fileName = fileNameFormat.format(year=t.year, month=t.month, day=t.day,
+        hour=t.hour, minute=t.minute, second=t.second)
+    fileName = os.path.join(dir, fileName)
 
     # Set up logging to the logfile.
-    filehandler = logging.handlers.RotatingFileHandler(
-        filename=logfile,
-        maxBytes=10 * 1024 * 1024,
-        backupCount=100)
-    filehandler.setLevel(logging.DEBUG)
-    fileformatter = logging.Formatter(
-        '%(asctime)s %(levelname)-8s: %(message)s')
-    filehandler.setFormatter(fileformatter)
-    logger.addHandler(filehandler)
+    fileHandler = logging.handlers.RotatingFileHandler(
+        filename=fileName, maxBytes=10*1024*1024, backupCount=100)
+    fileHandler.setLevel(logging.DEBUG)
+    fileFormatter = logging.Formatter(fileMsgFormat)
+    fileHandler.setFormatter(fileFormatter)
+    logger.addHandler(fileHandler)
 
     # Set up logging to the console.
-    streamhandler = logging.StreamHandler()
-    streamhandler.setLevel(minlevel)
-    streamformatter = logging.Formatter('%(levelname)s: %(message)s')
-    streamhandler.setFormatter(streamformatter)
-    logger.addHandler(streamhandler)
+    streamHandler = logging.StreamHandler()
+    streamHandler.setLevel(minLevel)
+    streamFormatter = logging.Formatter(consoleMsgFormat)
+    streamHandler.setFormatter(streamFormatter)
+    logger.addHandler(streamHandler)
 
 
 if __name__ == '__main__':
@@ -95,8 +84,7 @@ if __name__ == '__main__':
     """
 
     # Set up dual logging.
-    logdir = 'log'
-    setup(logdir)
+    setup('logtest')
 
     # Generate some log messages.
     logging.debug('Debug messages are only sent to the logfile.')
