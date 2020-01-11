@@ -22,16 +22,16 @@ import logging.handlers
 import os
 
 # Define default logfile format.
-fileNameFormat = '{year:04d}{month:02d}{day:02d}-'\
+file_name_format = '{year:04d}{month:02d}{day:02d}-'\
     '{hour:02d}{minute:02d}{second:02d}.log'
 
 # Define the default logging message formats.
-fileMsgFormat = '%(asctime)s %(levelname)-8s: %(message)s'
-consoleMsgFormat = '%(levelname)s: %(message)s'
+file_msg_format = '%(asctime)s %(levelname)-8s: %(message)s'
+console_msg_format = '%(levelname)s: %(message)s'
 
 # Define the log rotation criteria.
-maxBytes=1024**2
-backupCount=100
+max_bytes=1024**2
+backup_count=100
 
 
 def setup(dir='log', minLevel=logging.WARNING):
@@ -63,24 +63,24 @@ def setup(dir='log', minLevel=logging.WARNING):
 
     # Construct the name of the logfile.
     t = datetime.datetime.now()
-    fileName = fileNameFormat.format(year=t.year, month=t.month, day=t.day,
+    file_name = file_name_format.format(year=t.year, month=t.month, day=t.day,
         hour=t.hour, minute=t.minute, second=t.second)
-    fileName = os.path.join(dir, fileName)
+    file_name = os.path.join(dir, file_name)
 
     # Set up logging to the logfile.
-    fileHandler = logging.handlers.RotatingFileHandler(
-        filename=fileName, maxBytes=maxBytes, backupCount=backupCount)
-    fileHandler.setLevel(logging.DEBUG)
-    fileFormatter = logging.Formatter(fileMsgFormat)
-    fileHandler.setFormatter(fileFormatter)
-    logger.addHandler(fileHandler)
+    file_handler = logging.handlers.Rotatingfile_handler(
+        file_name=file_name, max_bytes=max_bytes, backup_count=backup_count)
+    file_handler.setLevel(logging.DEBUG)
+    file_formatter = logging.Formatter(file_msg_format)
+    file_handler.setFormatter(file_formatter)
+    logger.addHandler(file_handler)
 
     # Set up logging to the console.
-    streamHandler = logging.StreamHandler()
-    streamHandler.setLevel(minLevel)
-    streamFormatter = logging.Formatter(consoleMsgFormat)
-    streamHandler.setFormatter(streamFormatter)
-    logger.addHandler(streamHandler)
+    stream_handler = logging.stream_handler()
+    stream_handler.setLevel(minLevel)
+    stream_formatter = logging.Formatter(console_msg_format)
+    stream_handler.setFormatter(stream_formatter)
+    logger.addHandler(stream_handler)
 
 
 if __name__ == '__main__':
